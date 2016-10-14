@@ -1060,6 +1060,30 @@ func TestEvalInternal(t *testing.T) {
 		},
 
 		{
+			`${foo[2-1]}`,
+			&ast.BasicScope{
+				VarMap: map[string]ast.Variable{
+					"foo": ast.Variable{
+						Type: ast.TypeList,
+						Value: []ast.Variable{
+							ast.Variable{
+								Type:  ast.TypeInt,
+								Value: "hello",
+							},
+							ast.Variable{
+								Type:  ast.TypeInt,
+								Value: "world",
+							},
+						},
+					},
+				},
+			},
+			false,
+			"world",
+			ast.TypeString,
+		},
+
+		{
 			"${foo[2]}",
 			&ast.BasicScope{
 				VarMap: map[string]ast.Variable{
